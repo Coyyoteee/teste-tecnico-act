@@ -1,0 +1,88 @@
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-4);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-medium);
+  background: var(--background-primary);
+}
+
+.symbol {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.credit,
+.creditText { color: var(--status-success); }
+.debit,
+.debitText { color: var(--status-error); }
+
+.details p,
+.details time,
+.amount,
+.empty {
+  margin: 0;
+}
+
+.type {
+  color: var(--text-primary);
+  font-weight: 750;
+}
+
+.details time {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.amount {
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: var(--space-6);
+  border: 1px dashed var(--border-primary);
+  border-radius: var(--radius-medium);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 32rem) {
+  .item {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .amount {
+    grid-column: 2;
+    text-align: left;
+  }
+}

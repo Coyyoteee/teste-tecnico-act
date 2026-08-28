@@ -55,3 +55,12 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Local movement storage
+src/Backend/data/movements.json
+src/Backend/data/.*.tmp
+
+# Frontend dependencies and build output
+src/Frontend/node_modules/
+src/Frontend/dist/
+src/Frontend/coverage/

@@ -1,0 +1,180 @@
+openapi: 3.0.3
+info:
+  title: API de Controle de Movimentações
+  description: API para registrar movimentações e consultar o saldo de uma conta empresarial.
+  version: 1.0.0
+
+servers:
+  - url: /
+    description: Servidor atual
+
+tags:
+  - name: Movements
+    description: Registro e consulta de movimentações.
+  - name: Balance
+    description: Consulta do saldo disponível.
+
+paths:
+  /api/v1/movements:
+    post:
+      tags:
+        - Movements
+      summary: Registra uma movimentação
+      operationId: createMovement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMovementRequest'
+            examples:
+              credit:
+                summary: Entrada de valor
+                value:
+                  type: credit
+                  amount: 100.00
+              debit:
+                summary: Saída de valor
+                value:
+                  type: debit
+                  amount: 50.00
+      responses:
+        '201':
+          description: Movimentação registrada com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movement'
+        '400':
+          description: Requisição inválida, incluindo tipo desconhecido ou valor menor ou igual a zero.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: A movimentação de débito deixaria o saldo negativo.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    get:
+      tags:
+        - Movements
+      summary: Consulta o histórico de movimentações
+      description: Retorna as movimentações em ordem cronológica inversa, da mais recente para a mais antiga.
+      operationId: getMovements
+      responses:
+        '200':
+          description: Histórico de movimentações.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movement'
+
+  /api/v1/balance:
+    get:
+      tags:
+        - Balance
+      summary: Consulta o saldo disponível
+      description: O saldo é derivado do histórico de movimentações e não constitui uma fonte de verdade independente.
+      operationId: getBalance
+      responses:
+        '200':
+          description: Saldo atual da conta.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
+
+components:
+  schemas:
+    MovementType:
+      type: string
+      description: Tipo da movimentação.
+      enum:
+        - credit
+        - debit
+
+    CreateMovementRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - amount
+      properties:
+        type:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          type: number
+          format: decimal
+          minimum: 0
+          exclusiveMinimum: true
+          description: Valor monetário positivo da movimentação.
+          example: 100.00
+
+    Movement:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - type
+        - amount
+        - occurredAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identificador único da movimentação.
+        type:
+          $ref: '#/components/schemas/MovementType'
+        amount:
+          type: number
+          format: decimal
+          minimum: 0
+          exclusiveMinimum: true
+          description: Valor monetário positivo da movimentação.
+          example: 100.00
+        occurredAt:
+          type: string
+          format: date-time
+          description: Data e hora em que a movimentação ocorreu, persistida em UTC.
+          example: '2026-08-26T15:30:00Z'
+
+    Balance:
+      type: object
+      additionalProperties: false
+      required:
+        - balance
+      properties:
+        balance:
+          type: number
+          format: decimal
+          minimum: 0
+          description: Saldo disponível derivado das movimentações.
+          example: 150.00
+
+    ProblemDetails:
+      type: object
+      description: Detalhes padronizados de um erro HTTP conforme RFC 7807.
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          description: URI que identifica o tipo do problema.
+        title:
+          type: string
+          description: Resumo legível do problema.
+        status:
+          type: integer
+          format: int32
+          description: Código de status HTTP.
+        detail:
+          type: string
+          description: Explicação específica do problema.
+        instance:
+          type: string
+          format: uri-reference
+          description: URI que identifica a ocorrência específica do problema.
+      additionalProperties: true

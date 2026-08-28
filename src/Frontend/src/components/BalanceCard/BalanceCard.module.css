@@ -1,0 +1,54 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.5rem, 5vw, 2.75rem);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-large);
+  background: var(--background-elevated);
+  box-shadow: var(--shadow-elevated);
+}
+
+.card::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.4rem;
+  height: 100%;
+  background: var(--accent-primary);
+  content: '';
+}
+
+.label,
+.note,
+.loading {
+  margin: 0;
+}
+
+.label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.value {
+  margin: var(--space-3) 0;
+  color: var(--text-primary);
+  font-size: clamp(2.25rem, 8vw, 4.5rem);
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
+}
+
+.loading {
+  margin-block: var(--space-5);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+}
+
+.note {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}

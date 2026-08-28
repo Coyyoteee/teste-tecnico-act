@@ -1,0 +1,13 @@
+.git
+.gitignore
+.vs
+.vscode
+**/bin
+**/obj
+**/node_modules
+**/dist
+publish
+src/Backend/data/*.json
+src/Backend/data/.*.tmp
+**/*.log
+**/logs

@@ -1,0 +1,45 @@
+.feedback {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-4);
+  border: 1px solid var(--feedback-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-elevated);
+  color: var(--text-primary);
+}
+
+.feedback p {
+  flex: 1;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.success { --feedback-color: var(--status-success); }
+.error { --feedback-color: var(--status-error); }
+.warning { --feedback-color: var(--status-warning); }
+
+.marker {
+  width: 0.65rem;
+  height: 0.65rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--feedback-color);
+}
+
+.action {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--feedback-color);
+  background: transparent;
+}
+
+@media (max-width: 32rem) {
+  .feedback {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .action {
+    width: 100%;
+  }
+}

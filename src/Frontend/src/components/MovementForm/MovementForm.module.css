@@ -1,0 +1,129 @@
+.form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: var(--space-5);
+  align-items: end;
+}
+
+.fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset legend,
+.amountField label {
+  display: block;
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.toggleGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-medium);
+  background: var(--background-primary);
+}
+
+.toggleItem {
+  min-height: 3rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.toggleItem[data-state='on'] {
+  background: var(--background-elevated);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-control);
+}
+
+.toggleItem span {
+  margin-right: var(--space-1);
+  color: var(--accent-primary);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.amountField {
+  min-width: 0;
+}
+
+.inputWrapper {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-medium);
+  background: var(--background-primary);
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--accent-primary);
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.inputWrapper span {
+  padding-left: var(--space-4);
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.inputWrapper input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  outline: 0;
+}
+
+.inputWrapper input:focus-visible {
+  outline: 0;
+}
+
+.hint {
+  margin: var(--space-2) 0 0;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.submit {
+  min-height: 3.5rem;
+  padding-inline: var(--space-6);
+  background: var(--accent-primary);
+  color: var(--text-primary);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+@media (max-width: 50rem) {
+  .form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .submit {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 36rem) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .submit {
+    grid-column: auto;
+    width: 100%;
+  }
+}
