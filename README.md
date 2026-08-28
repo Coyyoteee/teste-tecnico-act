@@ -149,24 +149,3 @@ Dockerfile
 README.md
 AGENTS.md
 ```
-
-## 11. Limitações deliberadas
-
-Decisões de escopo desta entrega:
-
-- execução em uma única instância;
-- sem autenticação;
-- sem banco de dados;
-- persistência em arquivo local;
-- sem paginação inicialmente.
-
-## 12. Validação manual rápida
-
-- [ ] Abrir o frontend.
-- [ ] Registrar um crédito.
-- [ ] Registrar um débito válido.
-- [ ] Tentar registrar um débito maior que o saldo.
-- [ ] Verificar a atualização do saldo.
-- [ ] Verificar o histórico de movimentações.
-- [ ] Reiniciar a aplicação e confirmar a persistência.
-- [ ] Em Docker, recriar o container com o mesmo volume e confirmar os dados.
