@@ -149,5 +149,3 @@ Dockerfile
 README.md
 AGENTS.md
 ```
-- [ ] Reiniciar a aplicação e confirmar a persistência.
-- [ ] Em Docker, recriar o container com o mesmo volume e confirmar os dados.
